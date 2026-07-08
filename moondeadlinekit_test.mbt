@@ -22,3 +22,20 @@ test "deadline allocates child budget within remaining time" {
   assert_eq(slice.granted_ms, 300)
   assert_false(slice.fully_granted())
 }
+
+///|
+test "split plan divides remaining budget with remainder" {
+  let plan = Deadline::new("batch", 0, 100).split(10, 3)
+  assert_eq(plan.per_part_ms, 30)
+  assert_eq(plan.remainder_ms, 0)
+  assert_eq(plan.grant_for_index(0), 30)
+}
+
+///|
+test "split plan distributes remainder to early indexes" {
+  let plan = Deadline::new("batch", 0, 101).split(0, 4)
+  assert_eq(plan.per_part_ms, 25)
+  assert_eq(plan.remainder_ms, 1)
+  assert_eq(plan.grant_for_index(0), 26)
+  assert_eq(plan.grant_for_index(1), 25)
+}
