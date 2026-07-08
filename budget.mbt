@@ -18,7 +18,11 @@ pub fn Deadline::allocate(
   {
     name: child_name,
     requested_ms: requested,
-    granted_ms: if requested < remaining { requested } else { remaining },
+    granted_ms: if requested < remaining {
+      requested
+    } else {
+      remaining
+    },
     parent_remaining_ms: remaining,
   }
 }

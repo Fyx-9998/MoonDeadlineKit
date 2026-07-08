@@ -21,7 +21,15 @@ pub fn Deadline::from_absolute(
   start_ms : Int,
   deadline_ms : Int,
 ) -> Deadline {
-  { name, start_ms, deadline_ms: if deadline_ms >= start_ms { deadline_ms } else { start_ms } }
+  {
+    name,
+    start_ms,
+    deadline_ms: if deadline_ms >= start_ms {
+      deadline_ms
+    } else {
+      start_ms
+    },
+  }
 }
 
 ///|
@@ -32,7 +40,11 @@ pub fn Deadline::total_budget_ms(self : Deadline) -> Int {
 ///|
 pub fn Deadline::remaining_ms(self : Deadline, now_ms : Int) -> Int {
   let remaining = self.deadline_ms - now_ms
-  if remaining > 0 { remaining } else { 0 }
+  if remaining > 0 {
+    remaining
+  } else {
+    0
+  }
 }
 
 ///|

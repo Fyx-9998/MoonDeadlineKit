@@ -7,11 +7,7 @@ pub(all) struct SplitPlan {
 } derive(Eq, Debug)
 
 ///|
-pub fn Deadline::split(
-  self : Deadline,
-  now_ms : Int,
-  parts : Int,
-) -> SplitPlan {
+pub fn Deadline::split(self : Deadline, now_ms : Int, parts : Int) -> SplitPlan {
   let safe_parts = if parts > 0 { parts } else { 1 }
   let remaining = self.remaining_ms(now_ms)
   {
@@ -23,10 +19,7 @@ pub fn Deadline::split(
 }
 
 ///|
-pub fn SplitPlan::grant_for_index(
-  self : SplitPlan,
-  index : Int,
-) -> Int {
+pub fn SplitPlan::grant_for_index(self : SplitPlan, index : Int) -> Int {
   if index < self.remainder_ms {
     self.per_part_ms + 1
   } else {

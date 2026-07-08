@@ -8,12 +8,6 @@ repository = "https://github.com/Fyx-9998/MoonDeadlineKit"
 
 license = "Apache-2.0"
 
-keywords = [
-  "deadline",
-  "timeout",
-  "budget",
-  "propagation",
-  "scheduling",
-]
+keywords = [ "deadline", "timeout", "budget", "propagation", "scheduling" ]
 
 description = "Deadline and timeout-budget primitives for MoonBit."
