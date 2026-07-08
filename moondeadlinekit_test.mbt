@@ -39,3 +39,12 @@ test "split plan distributes remainder to early indexes" {
   assert_eq(plan.grant_for_index(0), 26)
   assert_eq(plan.grant_for_index(1), 25)
 }
+
+///|
+test "deadline report captures current state" {
+  let report = Deadline::new("request", 1000, 200).report(1150)
+  assert_eq(report.total_budget_ms, 200)
+  assert_eq(report.remaining_ms, 50)
+  assert_true(report.healthy())
+  assert_false(report.expired)
+}
