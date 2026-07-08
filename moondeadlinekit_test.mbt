@@ -48,3 +48,18 @@ test "deadline report captures current state" {
   assert_true(report.healthy())
   assert_false(report.expired)
 }
+
+///|
+test "deadline guard rejects insufficient budget" {
+  let decision = Deadline::new("request", 0, 100).can_start(80, 30)
+  assert_false(decision.allowed)
+  assert_eq(decision.reason, "insufficient_budget")
+  assert_eq(decision.remaining_ms, 20)
+}
+
+///|
+test "deadline guard allows tasks with enough budget" {
+  let decision = Deadline::new("request", 0, 100).can_start(20, 30)
+  assert_true(decision.allowed)
+  assert_eq(decision.reason, "enough_budget")
+}
