@@ -63,3 +63,11 @@ test "deadline guard allows tasks with enough budget" {
   assert_true(decision.allowed)
   assert_eq(decision.reason, "enough_budget")
 }
+
+///|
+test "json export keeps stable deadline fields" {
+  let report = Deadline::new("api", 100, 50).report(120).to_json()
+  let decision = Deadline::new("api", 100, 50).can_start(120, 20).to_json()
+  assert_true(report.contains("\"remaining_ms\":30"))
+  assert_true(decision.contains("\"allowed\":true"))
+}
