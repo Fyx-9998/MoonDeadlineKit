@@ -1,0 +1,7 @@
+import {
+  "Fyx-9998/moondeadlinekit" @deadline,
+}
+
+options(
+  "is-main": true,
+)
