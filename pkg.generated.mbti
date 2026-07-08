@@ -1,0 +1,68 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "Fyx-9998/moondeadlinekit"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+pub(all) struct BudgetSlice {
+  name : String
+  requested_ms : Int
+  granted_ms : Int
+  parent_remaining_ms : Int
+} derive(Eq, @debug.Debug)
+pub fn BudgetSlice::deadline(Self, Int) -> Deadline
+pub fn BudgetSlice::fully_granted(Self) -> Bool
+pub fn BudgetSlice::to_json(Self) -> String
+
+pub(all) struct Deadline {
+  name : String
+  start_ms : Int
+  deadline_ms : Int
+} derive(Eq, @debug.Debug)
+pub fn Deadline::allocate(Self, String, Int, Int) -> BudgetSlice
+pub fn Deadline::can_start(Self, Int, Int) -> DeadlineDecision
+pub fn Deadline::expired(Self, Int) -> Bool
+pub fn Deadline::from_absolute(String, Int, Int) -> Self
+pub fn Deadline::new(String, Int, Int) -> Self
+pub fn Deadline::remaining_ms(Self, Int) -> Int
+pub fn Deadline::report(Self, Int) -> DeadlineReport
+pub fn Deadline::split(Self, Int, Int) -> SplitPlan
+pub fn Deadline::total_budget_ms(Self) -> Int
+
+pub(all) struct DeadlineDecision {
+  allowed : Bool
+  reason : String
+  remaining_ms : Int
+} derive(Eq, @debug.Debug)
+pub fn DeadlineDecision::to_json(Self) -> String
+
+pub(all) struct DeadlineReport {
+  name : String
+  now_ms : Int
+  start_ms : Int
+  deadline_ms : Int
+  total_budget_ms : Int
+  remaining_ms : Int
+  expired : Bool
+} derive(Eq, @debug.Debug)
+pub fn DeadlineReport::healthy(Self) -> Bool
+pub fn DeadlineReport::to_json(Self) -> String
+
+pub(all) struct SplitPlan {
+  parent_name : String
+  parts : Int
+  per_part_ms : Int
+  remainder_ms : Int
+} derive(Eq, @debug.Debug)
+pub fn SplitPlan::grant_for_index(Self, Int) -> Int
+
+// Type aliases
+
+// Traits
+
